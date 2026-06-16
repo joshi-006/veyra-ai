@@ -1,15 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import dynamic from "next/dynamic";
-
-const InteractiveDemoScene = dynamic(
-  () =>
-    import("@/three/scenes/interactive-demo-scene").then(
-      (mod) => mod.InteractiveDemoScene
-    ),
-  { ssr: false }
-);
 
 const LANGUAGES = ["English", "Japanese", "Spanish", "Arabic", "Mandarin"];
 const EMOTIONS = [
@@ -66,7 +57,40 @@ export function InteractiveDemoSection() {
       </div>
 
       <div className="relative h-[340px] w-full max-w-3xl overflow-hidden rounded-2xl border border-veyra-line bg-veyra-surface">
-        <InteractiveDemoScene emotion={emotion} transformed={transformed} />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(8,9,11,1) 0%, rgba(15,18,20,1) 100%), radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06), transparent 20%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04), transparent 15%), radial-gradient(circle at 50% 70%, rgba(255,255,255,0.03), transparent 12%)",
+          }}
+        />
+        <div className="absolute inset-0 opacity-70">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02), transparent 20%), radial-gradient(circle at 75% 50%, rgba(255,255,255,0.02), transparent 16%)",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+              backgroundSize: "120px 120px",
+            }}
+          />
+        </div>
+        <div className="relative flex h-full flex-col items-center justify-center px-8 text-center text-veyra-paper">
+          <p className="mb-3 text-sm uppercase tracking-[0.35em] text-veyra-ash">
+            Translation preview
+          </p>
+          <p className="max-w-xl text-lg leading-relaxed">
+            {transformed
+              ? "Output rendered with tone and intent preserved — subtle, stable, and readable."
+              : "Select languages and emotion, then translate to see the signal flow without distracting glow."}
+          </p>
+        </div>
       </div>
 
       <div className="grid w-full max-w-3xl gap-8 md:grid-cols-3">
