@@ -9,56 +9,10 @@ interface BentoCardProps {
 }
 
 export function BentoCard({ title, description, className = "" }: BentoCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [glow, setGlow] = useState({ x: 50, y: 50, opacity: 0 });
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setGlow({ x, y, opacity: 1 });
-
-    const tiltX = ((e.clientY - rect.top) / rect.height - 0.5) * -4;
-    const tiltY = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
-    setTilt({ x: tiltX, y: tiltY });
-  }
-
-  function handleMouseLeave() {
-    setGlow((g) => ({ ...g, opacity: 0 }));
-    setTilt({ x: 0, y: 0 });
-  }
-
   return (
     <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1)",
-      }}
-      className={`group relative overflow-hidden rounded-2xl border border-veyra-line bg-veyra-surface p-8 ${className}`}
+      className={`relative overflow-hidden rounded-2xl border border-veyra-line bg-veyra-surface p-8 ${className}`}
     >
-      <div
-        className="pointer-events-none absolute inset-0 transition-opacity duration-300"
-        style={{
-          opacity: glow.opacity,
-          background: `radial-gradient(280px circle at ${glow.x}% ${glow.y}%, rgba(232,217,192,0.08), transparent 70%)`,
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-300"
-        style={{
-          opacity: glow.opacity,
-          background: `radial-gradient(220px circle at ${glow.x}% ${glow.y}%, rgba(232,217,192,0.25), transparent 70%)`,
-          mask: "linear-gradient(black, black) content-box, linear-gradient(black, black)",
-          WebkitMaskComposite: "xor",
-          padding: "1px",
-        }}
-      />
       <h3 className="font-display text-xl font-medium text-veyra-paper">
         {title}
       </h3>
