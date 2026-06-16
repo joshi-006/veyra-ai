@@ -1,17 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { TextReveal } from "@/components/text-reveal";
-
-const NeuralCommunicationScene = dynamic(
-  () =>
-    import("@/three/scenes/neural-communication-scene").then(
-      (mod) => mod.NeuralCommunicationScene
-    ),
-  { ssr: false }
-);
 
 export function HeroArrival({
   scrollProgress,
@@ -25,14 +16,11 @@ export function HeroArrival({
       ref={containerRef}
       className="relative h-[100vh] w-full overflow-hidden bg-veyra-void"
     >
-      <NeuralCommunicationScene scrollProgress={scrollProgress} />
-
-      {/* Vignette to keep typography legible over the field */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at 50% 45%, rgba(8,9,11,0.15) 0%, rgba(8,9,11,0.55) 60%, rgba(8,9,11,0.92) 100%)",
+            "linear-gradient(180deg, #040507 0%, #08090B 100%)",
         }}
       />
 
