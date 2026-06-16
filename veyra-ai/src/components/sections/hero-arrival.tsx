@@ -24,6 +24,8 @@ export function HeroArrival({
         }}
       />
 
+      <div className="pointer-events-none absolute inset-0 hero-grid-pattern" />
+
       <div className="relative z-10 flex h-full flex-col">
         <motion.header
           initial={{ opacity: 0, y: -12 }}
@@ -56,7 +58,7 @@ export function HeroArrival({
         <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
           <TextReveal
             as="h1"
-            mode="mask"
+            mode="stagger-chars"
             start="top 95%"
             className="display-1 max-w-5xl text-veyra-paper"
           >
